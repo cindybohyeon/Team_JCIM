@@ -15,7 +15,7 @@ refreshToken을 비교해서,refresh가 있다면 새로운 accesstoken을 만�
 
 router.get('/', async (req, res) => {
     const refreshToken = req.headers.refreshtoken;
-    const selectUserQuery = 'SELECT * FROM ser WHERE refreshToken = ?';
+    const selectUserQuery = 'SELECT * FROM user WHERE refreshToken = ?';
     const selectUserResult = await db.queryParam_Parse(selectUserQuery, refreshToken);
     if (!selectUserResult) {// DB오류
         res.status(200).send(defaultRes.successFalse(statusCode.DB_ERROR, resMessage.DB_ERROR));
