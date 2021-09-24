@@ -42,7 +42,7 @@ router.post('/', async (req, res) => {
 
         // console.log(hashedPw);
         //(3-2) 암호화된 비밀번호와 함께 INSERT 문 실행
-        const signupResult = await db.queryParam_Arr(signupQuery, [name,email,phone, password, birth, address, Iotnum,hashedPw.toString('base64'), salt]);
+        const signupResult = await db.queryParam_Arr(signupQuery, [name,email,phone,  birth, address, Iotnum,hashedPw.toString('base64'), salt]);
         // console.log(signupResult);
         
         //(3-3) 결과값에 따른 쿼리문 출력하기
