@@ -20,6 +20,11 @@ router.post('/', async (req, res) => {
     const password = req.body.password;
     const phone = req.body.phone;
     const name = req.body.name;
+    
+    const birth = req.body.birth;
+    const address = req.body.address;
+    const Iotnum = req.body.Iotnum;
+
     console.log(email);
     console.log(password);
     console.log(phone);
@@ -31,7 +36,7 @@ router.post('/', async (req, res) => {
     console.log(selectIdQuery);
     console.log(selectIdResult);
     
-    const signupQuery = 'INSERT INTO user (name, email, phone, password, salt) VALUES (?,?,?,?,?)'
+    const signupQuery = 'INSERT INTO user (name, email, phone, password, birth, address, Iotnum, salt) VALUES (?,?,?,?,?,?,?,?)'
     // const signupQuery = 'INSERT INTO user SET ?';
     // var VALUES = { email: email, password: hashedPw.toString('base64'), name: name, phone: phone, salt :salt};    
 
@@ -43,10 +48,10 @@ router.post('/', async (req, res) => {
         const salt = buf.toString('base64');
         const hashedPw = await crypto.pbkdf2(password, salt, 1000, 32, 'SHA512')
 
-        console.log(hashedPw);
+        // console.log(hashedPw);
         //(3-2) 암호화된 비밀번호와 함께 INSERT 문 실행
-        const signupResult = await db.queryParam_Arr(signupQuery, [name,email,phone,  hashedPw.toString('base64'), salt]);
-        console.log(signupResult);
+        const signupResult = await db.queryParam_Arr(signupQuery, [name,email,phone, password, birth, address, Iotnum,hashedPw.toString('base64'), salt]);
+        // console.log(signupResult);
         
         //(3-3) 결과값에 따른 쿼리문 출력하기
         if (!signupResult) {
