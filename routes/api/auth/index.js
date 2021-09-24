@@ -11,6 +11,7 @@ router.use("/refresh", require("./refresh"));
 router.use("/check_duplicate_email", require("./check_duplicate_email"));
 router.use("/checkIot", require("./checkIot"));
 router.use("/signup_phone_auth", require("./signup_phone_auth"));
+router.use("/find_password", require("./find_password"));
 
 
 module.exports = router;
