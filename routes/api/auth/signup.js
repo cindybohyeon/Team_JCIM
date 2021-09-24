@@ -29,19 +29,11 @@ router.post('/', async (req, res) => {
     console.log(password);
     console.log(phone);
     console.log(name);
-
-    //(2) email 중복 검사
-    const selectIdQuery = 'SELECT * FROM user WHERE email = ?'
-    const selectIdResult = await db.queryParam_Parse(selectIdQuery, email);
-    console.log(selectIdQuery);
-    console.log(selectIdResult);
     
     const signupQuery = 'INSERT INTO user (name, email, phone, password, birth, address, Iotnum, salt) VALUES (?,?,?,?,?,?,?,?)'
-    // const signupQuery = 'INSERT INTO user SET ?';
-    // var VALUES = { email: email, password: hashedPw.toString('base64'), name: name, phone: phone, salt :salt};    
 
     //(3) email 중복 없을 시, 회원가입하기
-    if (selectIdResult[0] == null) {
+    // if (selectIdResult[0] == null) {
         console.log("일치 없음");
         //(3-1) 비밀번호 암호화 작업
         const buf = await crypto.randomBytes(64);
@@ -60,10 +52,7 @@ router.post('/', async (req, res) => {
 
             res.status(200).send(defaultRes.successTrue(statusCode.OK, resMessage.SIGNUP_SUCCESS));
         }
-    } else {
-        console.log("이미 존재");
-        res.status(200).send(defaultRes.successFalse(statusCode.OK, resMessage.DUPLICATED_ID_FAIL));
-    }
+
 });
 
 module.exports = router;
