@@ -36,7 +36,7 @@ router.post('/phone_auth', async (req, res) => {
     const buf = await crypto.randomBytes(64);
     const salt = buf.toString('base64');
     const hashedPw = await crypto.pbkdf2(new_pwd, salt, 1000, 32, 'SHA512');
-    const changeQuery = 'UPDATE user SET password = ?, salt = ? WHERE user_id= ?';
+    const changeQuery = 'UPDATE user SET password = ?, salt = ? WHERE email= ?';
     const changeResult = await db.queryParam_Arr(changeQuery, [hashedPw.toString('base64'), salt, 2]);
     res.status(200).send(defaultRes.successTrue(200, "임시 비밀번호 이메일 전송 완료"));
 });
