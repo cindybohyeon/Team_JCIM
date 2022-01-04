@@ -32,7 +32,7 @@ router.post('/phone_auth', async (req, res) => {
     var new_pwd = Math.random().toString(36).substr(2,11);
     // 임시 비밀번호를 사용자 email로 전송한다.
     mailSend.sendMail(email, new_pwd);
-    // 비밀번호 업데이트
+    // 비밀번호 업데이트한다.
     const buf = await crypto.randomBytes(64);
     const salt = buf.toString('base64');
     const hashedPw = await crypto.pbkdf2(new_pwd, salt, 1000, 32, 'SHA512');
